@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
 import { sqlAgent } from "../../../mastra/agents/sql";
+import { z } from "zod";
+
+const schema = z.object({
+  result: z.string(),
+  sqlQuery: z.string(),
+});
 
 export async function POST(request: Request) {
   try {
@@ -16,18 +22,23 @@ export async function POST(request: Request) {
       );
     }
 
-    const response = await sqlAgent.generate([
+    const response = await sqlAgent.generate(
+      [
+        {
+          role: "user",
+          content: query,
+        },
+      ],
       {
-        role: "user",
-        content: query,
-      },
-    ]);
+        output: schema,
+      }
+    );
 
-    const sqlQueryMatch = response.text.match(/SELECT[\s\S]*?;/i);
+    const sqlQueryMatch = response.object.sqlQuery.match(/SELECT[\s\S]*?;/i);
     const sqlQuery = sqlQueryMatch ? sqlQueryMatch[0] : null;
 
     return NextResponse.json({
-      result: response.text,
+      result: response.object.result,
       sqlQuery,
       success: true,
     });
