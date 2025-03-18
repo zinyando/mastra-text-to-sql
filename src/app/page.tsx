@@ -97,12 +97,25 @@ export default function Home() {
 
       <div className="mt-8 p-4 bg-gray-800 rounded-md border border-gray-700">
         <h3 className="text-lg font-semibold mb-2 text-gray-200">Example Queries:</h3>
-        <ul className="list-disc pl-5 space-y-2 text-gray-300">
-          <li>What are the top 10 most populated cities in the world?</li>
-          <li>Show me cities in Europe with population over 5 million</li>
-          <li>What is the average city population by continent?</li>
-          <li>List cities in Asia sorted by population</li>
-          <li>Compare the population of cities in North America and Europe</li>
+        <ul className="space-y-2 text-gray-300">
+          {[
+            "What are the top 10 most populated cities in the world?",
+            "Show me cities in Europe with population over 5 million",
+            "What is the average city population by continent?",
+            "List cities in Asia sorted by population",
+            "Compare the population of cities in North America and Europe"
+          ].map((exampleQuery, index) => (
+            <li key={index} className="flex items-center">
+              <button
+                onClick={() => setQuery(exampleQuery)}
+                className="text-left hover:text-blue-400 hover:underline focus:outline-none focus:text-blue-400 transition-colors cursor-pointer"
+                aria-label={`Use example query: ${exampleQuery}`}
+              >
+                <span className="mr-2">•</span>
+                {exampleQuery}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
