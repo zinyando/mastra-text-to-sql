@@ -70,9 +70,49 @@ export default function Home() {
     }
   };
   
-  const handleExampleClick = (exampleQuery: string) => {
+  const handleExampleClick = async (exampleQuery: string) => {
     setQuery(exampleQuery);
     setShowExamples(false);
+    
+    // Automatically generate results for the selected example query
+    setLoading(true);
+    setError("");
+    setSqlQuery("");
+    setResult("");
+    setTableData(null);
+
+    try {
+      const response = await fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: exampleQuery }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "An error occurred");
+      }
+
+      setResult(data.result);
+      setSqlQuery(data.sqlQuery || "");
+      setTableData(data.tableData || null);
+      
+      // Set the most appropriate default tab
+      if (data.tableData && data.tableData.headers.length > 0) {
+        setActiveTab('table');
+      } else if (data.sqlQuery) {
+        setActiveTab('sql');
+      } else {
+        setActiveTab('explanation');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
