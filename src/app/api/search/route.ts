@@ -9,6 +9,11 @@ const sqlGenerationSchema = z.object({
   sqlQuery: z.string().describe("The SQL query used to generate the results"),
 });
 
+// Define specific types for database query results
+type SqlValue = string | number | boolean | null;
+type SqlRow = Record<string, SqlValue>;
+type SqlQueryResult = SqlRow[];
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -55,23 +60,23 @@ export async function POST(request: Request) {
       // Type assertion to handle the execute method
       const executeMethod = populationInfo.execute as (
         params: { context: { query: string } }
-      ) => Promise<Record<string, any>[]>;
+      ) => Promise<SqlQueryResult>;
       
-      const queryResults = await executeMethod({ context: { query: sqlQuery } });
+      const queryResults: SqlQueryResult = await executeMethod({ context: { query: sqlQuery } });
       console.log("SQL query results:", queryResults);
       
       // Step 3: Format the results into a table
       if (Array.isArray(queryResults) && queryResults.length > 0) {
         // Extract headers from the first result object
-        const headers = Object.keys(queryResults[0] as Record<string, any>);
+        const headers = Object.keys(queryResults[0] as SqlRow);
         
         // Extract rows from all results
-        const rows = queryResults.map((row: Record<string, any>) => {
+        const rows = queryResults.map((row: SqlRow) => {
           return headers.map(header => {
             const value = row[header];
             
             // Format the value based on its type
-            if (value === null || value === undefined) {
+            if (value === null) {
               return "N/A";
             } else if (typeof value === 'number') {
               return new Intl.NumberFormat().format(value);
