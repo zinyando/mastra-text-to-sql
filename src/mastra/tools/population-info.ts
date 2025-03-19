@@ -1,12 +1,20 @@
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
-import { Client } from "pg";
+import { Pool } from "pg";
+
+const pool = new Pool({
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
+
+pool.on("error", (err) => {
+  console.error("Unexpected error on idle client", err);
+});
 
 const executeQuery = async (query: string) => {
-  const client = new Client();
+  const client = await pool.connect();
   try {
-    await client.connect();
-
     const result = await client.query(query);
     return result.rows;
   } catch (error) {
@@ -14,7 +22,7 @@ const executeQuery = async (query: string) => {
       `Failed to execute query: ${error instanceof Error ? error.message : String(error)}`
     );
   } finally {
-    await client.end();
+    client.release();
   }
 };
 
@@ -28,7 +36,6 @@ export const populationInfo = createTool({
   description: `Executes a SQL query against the cities database and returns the results`,
   execute: async ({ context: { query } }) => {
     try {
-      // Validate that this is a SELECT query for safety
       const trimmedQuery = query.trim().toLowerCase();
       if (!trimmedQuery.startsWith("select")) {
         throw new Error("Only SELECT queries are allowed for security reasons");
