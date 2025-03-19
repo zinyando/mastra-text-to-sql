@@ -18,6 +18,24 @@ export default function Home() {
   const [showExamples, setShowExamples] = useState(true);
   const resultsRef = useRef<HTMLDivElement>(null);
   
+  // Function to format header names (replace underscores with spaces and capitalize each word)
+  const formatHeaderName = (header: string) => {
+    return header
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+  
+  // Function to format numbers with thousands separators
+  const formatNumber = (value: string) => {
+    // Remove any existing commas first
+    const num = Number(value.replace(/,/g, ''));
+    if (isNaN(num)) return value;
+    
+    // Format with thousands separators
+    return num.toLocaleString();
+  };
+  
   // Auto-scroll to results when they appear
   useEffect(() => {
     if ((tableData || sqlQuery || result) && resultsRef.current) {
@@ -312,7 +330,7 @@ export default function Home() {
                             <tr className="bg-gray-100 dark:bg-gray-800">
                               {tableData.headers.map((header, index) => (
                                 <th key={index} scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-                                  {header}
+                                  {formatHeaderName(header)}
                                 </th>
                               ))}
                             </tr>
@@ -322,8 +340,10 @@ export default function Home() {
                               <tr key={rowIndex} className={rowIndex % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-700'}>
                                 {row.map((cell, cellIndex) => (
                                   <td key={cellIndex} className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                    {cellIndex === 1 && !isNaN(Number(cell.replace(/,/g, ''))) ? (
-                                      <span className="font-medium text-blue-600 dark:text-blue-400">{cell}</span>
+                                    {!isNaN(Number(cell.replace(/,/g, ''))) ? (
+                                      <span className={`font-medium ${cellIndex === 1 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-800 dark:text-gray-200'}`}>
+                                        {formatNumber(cell)}
+                                      </span>
                                     ) : (
                                       cell
                                     )}
