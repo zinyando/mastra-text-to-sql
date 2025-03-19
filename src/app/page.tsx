@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 type TableData = {
   headers: string[];
@@ -144,6 +145,14 @@ export default function Home() {
           <p className="text-center text-gray-600 dark:text-gray-300 mt-2 max-w-2xl mx-auto">
             Transform natural language questions into SQL queries and visualize database results
           </p>
+          <div className="mt-4 text-center">
+            <Link href="/data" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+              View Complete Database
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </header>
 
