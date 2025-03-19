@@ -9,8 +9,6 @@ export async function GET() {
   try {
     const sqlQuery = "SELECT * FROM cities ORDER BY population DESC;";
 
-    console.log("Fetching all data with query:", sqlQuery);
-
     try {
       const executeMethod = populationInfo.execute as (params: {
         context: { query: string };
@@ -19,7 +17,7 @@ export async function GET() {
       const queryResults: SqlQueryResult = await executeMethod({
         context: { query: sqlQuery },
       });
-      console.log("SQL query results count:", queryResults.length);
+
 
       if (Array.isArray(queryResults) && queryResults.length > 0) {
         const allHeaders = Object.keys(queryResults[0] as SqlRow);
@@ -60,7 +58,7 @@ export async function GET() {
         );
       }
     } catch (error) {
-      console.error("Error executing SQL query:", error);
+
       return NextResponse.json(
         {
           error: `Failed to execute SQL query: ${error instanceof Error ? error.message : String(error)}`,
@@ -70,7 +68,7 @@ export async function GET() {
       );
     }
   } catch (error) {
-    console.error("Unexpected error:", error);
+
     return NextResponse.json(
       {
         error: `An unexpected error occurred: ${error instanceof Error ? error.message : String(error)}`,

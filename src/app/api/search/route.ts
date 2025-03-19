@@ -53,7 +53,7 @@ export async function POST(request: Request) {
       }, { status: 500 });
     }
     
-    console.log("Generated SQL query:", sqlQuery);
+
 
     // Step 2: Execute the SQL query directly
     try {
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
       ) => Promise<SqlQueryResult>;
       
       const queryResults: SqlQueryResult = await executeMethod({ context: { query: sqlQuery } });
-      console.log("SQL query results:", queryResults);
+
       
       // Step 3: Format the results into a table
       if (Array.isArray(queryResults) && queryResults.length > 0) {
@@ -109,7 +109,7 @@ export async function POST(request: Request) {
         });
       }
     } catch (queryError) {
-      console.error("Error executing SQL query:", queryError);
+
       return NextResponse.json({
         error: `Error executing SQL query: ${queryError instanceof Error ? queryError.message : String(queryError)}`,
         sqlQuery,
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
       }, { status: 500 });
     }
   } catch (error) {
-    console.error("Error processing query:", error);
+
     return NextResponse.json(
       {
         error: `An error occurred while processing your query: ${error instanceof Error ? error.message : String(error)}`,
