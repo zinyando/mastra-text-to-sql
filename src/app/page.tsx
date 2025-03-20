@@ -251,12 +251,12 @@ export default function Home() {
                     "Show me cities in Europe with population over 5 million",
                     "What is the average city population by continent?",
                     "List cities in Asia sorted by population",
-                    "Compare the population of cities in North America and Europe",
                     "Which continent has the highest average city population?",
                     "Find cities with population between 1 million and 5 million in Africa",
                     "What is the total population of cities in South America?",
                     "Show the 5 least populated capital cities in the world",
-                    "Compare population density between coastal and inland cities"
+                    "Compare the population distribution of cities across different continents",
+                    "Find cities with similar latitudes but different populations",
                   ].map((exampleQuery, index) => (
                     <div key={index} className="group">
                       <button
