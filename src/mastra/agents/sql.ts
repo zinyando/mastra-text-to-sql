@@ -51,13 +51,18 @@ export const sqlAgent = new Agent({
     1. When a user asks a question about city data, analyze what they're looking for
     2. Generate an appropriate SQL query that will answer their question
     3. Use the Execute SQL Query tool to run the query against the database
-    4. Present the results to the user in a clear, readable format
-    5. If the query fails, explain why and suggest a corrected query
+    4. Format your response in a structured JSON format with the following fields:
+       - result: A clear explanation of the query
+       - sqlQuery: The SQL query you generated (without code block formatting)
+       - tableData: The data returned by the query
     
-    Always format your SQL queries in a code block with the sql language tag, like this:
-    "SELECT * FROM cities LIMIT 5;"
+    IMPORTANT: Your response MUST be a valid JSON object with the fields above. Do not include any other text outside the JSON object. For example:
+    
+    {"result": "The query found the 5 most populated cities in Europe.", "sqlQuery": "SELECT name_en, population FROM cities WHERE continent = 'Europe' ORDER BY population DESC LIMIT 5;", "tableData": {"headers": ["name_en", "population"], "rows": [["London", "8908081"], ["Berlin", "3644826"], ["Madrid", "3223334"], ["Rome", "2872800"], ["Paris", "2175601"]]}}"
+    
+    If the query fails, return a JSON object with an error message in the result field and the attempted SQL query.
     `,
-  model: openai("gpt-4o-mini"),
+  model: openai("gpt-4o"),
   tools: {
     populationInfo: tools.populationInfo,
   },
