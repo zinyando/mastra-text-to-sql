@@ -62,7 +62,7 @@ export const sqlAgent = new Agent({
     
     If the query fails, return a JSON object with an error message in the result field and the attempted SQL query.
     `,
-  model: openai("gpt-4o"),
+  model: openai("gpt-4o-mini"),
   tools: {
     populationInfo: tools.populationInfo,
   },
