@@ -140,14 +140,14 @@ export default function Home() {
       <header className="relative py-8 mb-8 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold text-center text-gray-800 dark:text-white">
-            SQL Query Generator
+            City Population SQL Query Generator
           </h1>
           <p className="text-center text-gray-600 dark:text-gray-300 mt-2 max-w-2xl mx-auto">
-            Transform natural language questions into SQL queries and visualize database results
+            Transform natural language questions into SQL queries and visualize cities population data from around the world
           </p>
           <div className="mt-4 text-center">
             <Link href="/data" className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
-              View Complete Database
+              View Complete Cities Database
               <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
