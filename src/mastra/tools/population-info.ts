@@ -5,7 +5,7 @@ import { Pool } from "pg";
 const pool = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 20000,
 });
 
 pool.on("error", (err) => {
@@ -35,6 +35,7 @@ export const populationInfo = createTool({
   }),
   description: `Executes a SQL query against the cities database and returns the results`,
   execute: async ({ context: { query } }) => {
+    console.log("Query running");
     try {
       const trimmedQuery = query.trim().toLowerCase();
       if (!trimmedQuery.startsWith("select")) {
