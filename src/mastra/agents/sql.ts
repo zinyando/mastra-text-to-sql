@@ -1,6 +1,7 @@
 import { openai } from "@ai-sdk/openai";
 import { Agent } from "@mastra/core/agent";
 import * as tools from "../tools/population-info";
+import { LanguageModelV1 } from "@ai-sdk/provider";
 
 export const sqlAgent = new Agent({
   name: "SQL Agent",
@@ -62,7 +63,7 @@ export const sqlAgent = new Agent({
     
     If the query fails, return a JSON object with an error message in the result field and the attempted SQL query.
     `,
-  model: openai("gpt-4o-mini"),
+  model: openai("gpt-4o") as LanguageModelV1,
   tools: {
     populationInfo: tools.populationInfo,
   },
