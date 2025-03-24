@@ -39,7 +39,7 @@ export const sqlAgent = new Agent({
     2. Generate an appropriate SQL query
     3. Execute the query using the Execute SQL Query tool
     4. Return results in the required JSON format with these fields:
-       - result: A clear explanation of the query
+       - result: A clear explanation of the generated SQL query
        - sqlQuery: The SQL query without code block formatting
        - tableData: The data returned by the query
     `,

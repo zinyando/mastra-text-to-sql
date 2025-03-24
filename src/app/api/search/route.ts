@@ -36,7 +36,7 @@ export async function POST(request: Request) {
           },
         ],
         {
-          output: agentResponseSchema,
+          experimental_output: agentResponseSchema,
         }
       );
 

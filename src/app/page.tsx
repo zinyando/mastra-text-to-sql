@@ -254,7 +254,7 @@ export default function Home() {
                     "Which continent has the highest average city population?",
                     "Find cities with population between 1 million and 5 million in Africa",
                     "What is the total population of cities in South America?",
-                    "Show the 5 least populated capital cities in the world",
+                    "Show the 5 least populated cities in the world",
                     "Compare the population distribution of cities across different continents",
                     "Find cities with similar latitudes but different populations",
                   ].map((exampleQuery, index) => (
