@@ -13,9 +13,14 @@ const agentResponseSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  const { messages } = await request.json();
+
   try {
-    const body = await request.json();
-    const { query } = body;
+    const [
+      {
+        content: [{ text: query }],
+      },
+    ] = messages;
 
     if (!query || typeof query !== "string") {
       return NextResponse.json(
