@@ -8,11 +8,9 @@ export async function POST(request: Request) {
   const { messages } = await request.json();
 
   try {
-    const [
-      {
-        content: [{ text: query }],
-      },
-    ] = messages;
+    const {
+      content: [{ text: query }],
+    } = messages[messages.length - 1];
 
     if (!query || typeof query !== "string") {
       return NextResponse.json(
