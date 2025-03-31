@@ -73,9 +73,7 @@ const ThreadWelcome: FC = () => {
     <ThreadPrimitive.Empty>
       <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
         <div className="flex w-full flex-grow flex-col items-center justify-center">
-          <p className="mt-4 font-medium">
-            How can I help you today?
-          </p>
+          <p className="mt-4 font-medium">How can I help you today?</p>
         </div>
         <ThreadWelcomeSuggestions />
       </div>
@@ -98,7 +96,7 @@ const ThreadWelcomeSuggestions: FC = () => {
             What are the top 10 most populated cities in the world?
           </span>
         </ThreadPrimitive.Suggestion>
-        
+
         <ThreadPrimitive.Suggestion
           className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
           prompt="Show me cities in Europe with population over 5 million"
@@ -110,7 +108,7 @@ const ThreadWelcomeSuggestions: FC = () => {
           </span>
         </ThreadPrimitive.Suggestion>
       </div>
-      
+
       {/* Bottom row - 2 suggestions */}
       <div className="flex items-stretch justify-center gap-4 w-full">
         <ThreadPrimitive.Suggestion
@@ -123,7 +121,7 @@ const ThreadWelcomeSuggestions: FC = () => {
             What is the average city population by continent?
           </span>
         </ThreadPrimitive.Suggestion>
-        
+
         <ThreadPrimitive.Suggestion
           className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
           prompt="List cities in Asia sorted by population"
@@ -277,7 +275,10 @@ const BranchPicker: FC<BranchPickerPrimitive.Root.Props> = ({
   return (
     <BranchPickerPrimitive.Root
       hideWhenSingleBranch
-      className={cn("text-muted-foreground inline-flex items-center text-xs", className)}
+      className={cn(
+        "text-muted-foreground inline-flex items-center text-xs",
+        className
+      )}
       {...rest}
     >
       <BranchPickerPrimitive.Previous asChild>
