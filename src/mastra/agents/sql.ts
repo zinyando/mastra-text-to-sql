@@ -46,6 +46,7 @@ export const sqlAgent = new Agent({
     2. Generate an appropriate SQL query
     3. Execute the query using the Execute SQL Query tool
     4. Return results in markdown format with these sections:
+
        ### SQL Query
        \`\`\`sql
        [The executed SQL query with proper formatting and line breaks for readability]
