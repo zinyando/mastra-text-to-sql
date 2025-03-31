@@ -99,12 +99,12 @@ const ThreadWelcomeSuggestions: FC = () => {
 
         <ThreadPrimitive.Suggestion
           className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-          prompt="Show me cities in Europe with population over 5 million"
+          prompt="Show me cities in Europe with population over 2 million"
           method="replace"
           autoSend
         >
           <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-            Show me cities in Europe with population over 5 million
+            Show me cities in Europe with population over 2 million
           </span>
         </ThreadPrimitive.Suggestion>
       </div>
