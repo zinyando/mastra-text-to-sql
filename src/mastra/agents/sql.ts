@@ -38,10 +38,17 @@ export const sqlAgent = new Agent({
     1. Analyze the user's question about city data
     2. Generate an appropriate SQL query
     3. Execute the query using the Execute SQL Query tool
-    4. Return results in the required JSON format with these fields:
-       - result: A clear explanation of the generated SQL query
-       - sqlQuery: The SQL query without code block formatting
-       - tableData: The data returned by the query
+    4. Return results in markdown format with these sections:
+       ### Results
+       [Query results in table format]
+
+       ### SQL Query
+       \`\`\`sql
+       [The executed SQL query]
+       \`\`\`
+
+       ### Explanation
+       [Clear explanation of what the query does]
     `,
   model: openai("gpt-4o") as LanguageModelV1,
   tools: {
