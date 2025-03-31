@@ -34,21 +34,28 @@ export const sqlAgent = new Agent({
     - If a user asks for a single column, include a count of that column
     - Format rates as decimals (e.g., 0.1 for 10%)
 
+    Key SQL formatting tips:
+    - Start main clauses (SELECT, FROM, WHERE, etc.) on new lines
+    - Indent subqueries and complex conditions
+    - Align related items (like column lists) for readability
+    - Put each JOIN on a new line
+    - Use consistent capitalization for SQL keywords
+
     WORKFLOW:
     1. Analyze the user's question about city data
     2. Generate an appropriate SQL query
     3. Execute the query using the Execute SQL Query tool
     4. Return results in markdown format with these sections:
-       ### Results
-       [Query results in table format]
-
        ### SQL Query
        \`\`\`sql
-       [The executed SQL query]
+       [The executed SQL query with proper formatting and line breaks for readability]
        \`\`\`
 
        ### Explanation
        [Clear explanation of what the query does]
+
+       ### Results
+       [Query results in table format]
     `,
   model: openai("gpt-4o") as LanguageModelV1,
   tools: {
